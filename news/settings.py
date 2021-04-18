@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_cleanup',
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     'app_news',
     'app_blog',
