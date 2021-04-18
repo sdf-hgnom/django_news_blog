@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Главная страница
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Новости</h1>
+    <ul class="info-content">
+        <li><span>Всего новостей : </span>
+            <span>{{ count_news }}</span>
+        </li>
+        <li><span>Всего коментариев к новостям : </span>
+            <span>{{ count_comments }}</span>
+        </li>
+        <li><span>Всего зарегистрированных пользователей : </span>
+            <span>{{ count_users }}</span>
+        </li>
+    <li><span>Всего блогов : </span>
+            <span>{{ count_blogs }}</span>
+        </li>
+    </ul>
+    <nav class="index-nav">
+        <a href="{% url 'news' %}" class="index-nav-btn">Просмотр Новостей</a>
+        <a href="{% url 'blog_main' %}" class="index-nav-btn">Блоги</a>
+        {% if perms.app_news.add_news%}
+            <a href="{% url 'news_create' %}" class="index-nav-btn">Добавить Новость</a>
+        {% endif %}
+    </nav>
+{% endblock %}

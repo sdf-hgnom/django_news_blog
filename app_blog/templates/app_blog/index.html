@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Блоги
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Блоги</h1>
+     <ul class="info-content">
+        <li><span>Всего блогов : </span>
+            <span>{{ count_blogs }}</span>
+        </li>
+     </ul>
+    <div class="blog-index-container">
+        <nav class="blog-nav-container">
+            <a href="{% url 'blog_list' %}">
+                <div class="blog-nav-btn">
+                    Просмотр блогов
+                </div>
+            </a>
+            {% if user.is_authenticated %}
+
+               <a href="{% url 'blog_upload' %}">
+                <div class="blog-nav-btn">
+                    загрузка блогов из файлов
+                </div>
+            </a>
+            {% endif %}
+        </nav>
+{% endblock %}

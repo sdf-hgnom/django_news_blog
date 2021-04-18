@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Регистрация
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Регистрация пользователя</h1>
+    <form class="register-form-container" method="post" action="">
+        <div class="register-form-row">
+            {% csrf_token %}
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Ник пользователя :
+            </div>
+            <div class="register-form-value">
+                {{ form.username }}
+            </div>
+            <div class="register-form-help">
+                {{ form.username.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.errors.username }}
+            </div>
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Фамилия пользователя :
+            </div>
+            <div class="register-form-value">
+                {{ form.last_name }}
+            </div>
+            <div class="register-form-help">
+                {{ form.last_name.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.last_name.first_name }}
+            </div>
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Имя пользователя :
+            </div>
+            <div class="register-form-value">
+                {{ form.first_name }}
+            </div>
+            <div class="register-form-help">
+                {{ form.first_name.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.errors.first_name }}
+            </div>
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Адрес Эл. почты :
+            </div>
+            <div class="register-form-value">
+                {{ form.email }}
+            </div>
+            <div class="register-form-help">
+                {{ form.email.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.errors.email }}
+            </div>
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Пароль :
+            </div>
+            <div class="register-form-value">
+                {{ form.password }}
+            </div>
+            <div class="register-form-help">
+                {{ form.password.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.errors.password }}
+            </div>
+        </div>
+        <div class="register-form-row">
+            <div class="register-form-label">
+                Повтор пароль :
+            </div>
+            <div class="register-form-value">
+                {{ form.password2 }}
+            </div>
+            <div class="register-form-help">
+                {{ form.password2.help_text }}
+            </div>
+            <div class="register-form-error">
+                {{ form.errors.password2 }}
+            </div>
+        </div>
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Регистрация">
+            <a href="{% url 'index' %}"><input class="index-nav-btn" type="button" value="Отказаться"></a>
+        </nav>
+    </form>
+{% endblock %}

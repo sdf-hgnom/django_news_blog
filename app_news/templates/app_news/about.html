@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    About company
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">О Нас</h1>
+
+    <ul class="info-content">
+        <li>
+            <span>Наименование :</span>
+            <span>{{ name }}</span>
+        </li>
+        <li><span>Страна :</span>
+            <span>{{ country }}</span></li>
+        <li>
+            <span>Область :</span>
+            <span>{{ region }}</span>
+        </li>
+        <li><span>Город :</span>
+            <span>{{ cite }}</span>
+        </li>
+    </ul>
+{% endblock %}

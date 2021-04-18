@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Login
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Вход в систему</h1>
+    <form method="post" action="">
+        <ul class="login-container">
+            {% if form.errors %}
+            <span class="error">Неверно введены данные(имя/пароль)</span>
+            {% endif %}
+            <li class="login-form-row">   {% csrf_token %}</li>
+            <li class="login-form-row">
+                <span class="login-form-label">{{ form.username.label_tag }}</span>
+                <span class="login-form-value">{{ form.username }}</span>
+                <span class="login-form-value">{{ form.errors.username }}</span>
+            </li>
+            <li class="login-form-row">
+                <span class="login-form-label">{{ form.password.label_tag }}</span>
+                <span class="login-form-value">{{ form.password }}</span>
+                <span class="login-form-value">{{ form.errors.password }}</span>
+            </li>
+            <li class="login-form-row"><input type="hidden" name="next" value="{% url 'index' %}"></li>
+        </ul>
+        <nav class="index-nav">
+            <input type="submit" class="index-nav-btn" value="Войти">
+            <a href="{% url 'news' %}" class="index-nav-btn">Отказаться</a>
+            <a href="{% url 'register' %}" class="index-nav-btn">Зарегистрироваться</a>
+        </nav>
+    </form>
+{% endblock %}

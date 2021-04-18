@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+{% block page_title %}
+    Пользователь - {{ author.profile.full_name }}
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">{{ author.profile.full_name }}</h1>
+
+    {% if author.is_superuser %}
+        <h2 class="main-block-header">Суперпользователь</h2>
+    {% elif author.profile.is_verify %}
+        <h2 class="main-block-header">Верифицированный пользователь</h2>
+    {% elif author.profile.is_moderator %}
+        <h2 class="main-block-header">Модератор</h2>
+    {% else %}
+        <h2 class="main-block-header">Обычный пользователь</h2>
+
+    {% endif %}
+    {% if author.profile.avatar %}
+        <div class="author-detail-avatar">
+        <img class="author-detail-avatar-img" src="{{ author.profile.avatar.url }}" alt="аватар">
+        </div>
+    {% endif %}
+    <form method="post" action="" enctype="multipart/form-data">
+        <ul class="author-detail-container">
+            <li class="author-detail-row">
+                {% csrf_token %}
+            </li>
+            <li class="author-detail-row">
+                {{ profile_form.user }}
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Ник автора</span>
+                <span class="author-detail-value">{{ author.username }}</span>
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Имя автора</span>
+                <span class="author-detail-value">{{ author.first_name }}</span>
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Отчество Автора</span>
+                {% if user.is_superuser or author == user %}
+                    <span class="author-detail-value">{{ profile_form.middle_name }}</span>
+                {% else %}
+                    <span class="author-detail-value">{{ author.profile.middle_name }}</span>
+                {% endif %}
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Фамилия Автора</span>
+                <span class="author-detail-value">{{ author.last_name }}</span>
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Эл. почта Автора</span>
+                <span class="author-detail-value">{{ author.email }}</span>
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Телефон </span>
+                {% if user.is_superuser or author == user %}
+                    <span class="author-detail-value">{{ profile_form.phone }}</span>
+                {% else %}
+                    <span class="author-detail-value">{{ author.profile.phone }}</span>
+                {% endif %}
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Файл аватара</span>
+                {% if user.is_superuser or author == user %}
+                    <span class="author-detail-value">{{ profile_form.avatar }}</span>
+                {% else %}
+                    <span class="author-detail-value">{{ author.profile.avatar.name }}</span>
+                {% endif %}
+            </li>
+
+            <li class="author-detail-row">
+                <span class="author-detail-label">Автор новостей</span>
+                {% if perms.app_news.can_set_verify %}
+                    <span class="author-detail-value">{{ profile_form.is_verify }}</span>
+                {% else %}
+                    <span class="author-detail-value">{{ author.profile.is_verify }}</span>
+                {% endif %}
+            </li>
+
+            <li class="author-detail-row">
+                <span class="author-detail-label">Количество новостей</span>
+                <span class="author-detail-value">{{ author.news_set.all.count }}</span>
+            </li>
+            <li class="author-detail-row">
+                <span class="author-detail-label">Количество коментариев</span>
+                <span class="author-detail-value">{{ author.comment_set.all.count }}</span>
+            </li>
+            <nav class="index-nav">
+                {% if user.is_superuser or user.profile.is_moderator or author == user %}
+                    <input class="index-nav-btn" type="submit" value="Сохранить"></a>
+                {% endif %}
+            </nav>
+        </ul>
+    </form>
+    <nav class="index-nav">
+        <a href="{% url 'authors' %}"><input class="index-nav-btn" type="button" value="К перечню Авторов"></a>
+    </nav>
+{% endblock %}

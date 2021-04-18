@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Загрузка файлов
+{% endblock %}
+{% block content %}
+        <h1 class="main-block-header">Загрузка файлов для блогов</h1>
+    <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <input class="blog-nav-btn" type="submit" value="Сохранить">
+
+        <a href="{% url 'blog_main' %}">
+            <div class="blog-nav-btn">
+                    Отмена
+                </div>
+        </a>
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_news/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app_blog/css/style_blog.css' %}">
+    <title>
+        {% block page_title %}{% endblock %}
+    </title>
+</head>
+<body>
+<div class="main-container">
+    <header class="main-header">
+        <div class="logo">Рога и копыта</div>
+        <hr>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{% url 'index' %}" class="main-nav-link">Главная</a></li>
+                <li><a href="{% url 'about' %}" class="main-nav-link">О нас</a></li>
+                <li><a href="{% url 'contacts' %}" class="main-nav-link">Контакты</a></li>
+                <li><a href="{% url 'news' %}" class="main-nav-link">Новости</a></li>
+                <li><a href="{% url 'blog_main' %}" class="main-nav-link">Блоги</a></li>
+                <li><a href="{% url 'authors' %}" class="main-nav-link">Пользователи</a></li>
+            </ul>
+        </nav>
+        <ul class="main-nav">
+            {% if user.is_authenticated %}
+                <li><a href="{{ user.profile.get_absolute_url }}" class="main-nav-link">
+                    <a href="{% url 'author_detail'  pk=user.pk %}" class="main-nav-link">
+                        {% if user.is_superuser %}
+                            <img class="main-news-list-element-picture"
+                                 src="{% static 'app_news/images/emblem-system.png' %}"
+                                 alt="картинка - суперпользователь">
+                        {% elif user.profile.is_verify %}
+                            <img class="main-news-list-element-picture" src="{% static 'app_news/images/book.png' %}"
+                                 alt="картинка - верифицированный пользователь">
+                        {% elif user.profile.is_moderator %}
+                            <img class="main-news-list-element-picture" src="{% static 'app_news/images/case.png' %}"
+                                 alt="картинка - пользователь">
+                        {% else %}
+                            <img class="main-news-list-element-picture" src="{% static 'app_news/images/user.png' %}"
+                                 alt="картинка - пользователь">
+
+                        {% endif %}
+                        {{ user.profile.full_name }}</a>
+                </li>
+                <li><a href="{% url 'logout' %}" class="main-nav-link">Выйти</a></li>
+            {% else %}
+                <li><span> {{ user }}</span></li>
+                <li><a href="{% url 'login' %}" class="main-nav-link">Войти</a></li>
+                <li><a href="{% url 'register' %}" class="main-nav-link">Зарегистрироваться</a></li>
+            {% endif %}
+
+
+        </ul>
+    </header>
+    <main class="main-block checkered">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message|safe }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}
+            Empty Content
+        {% endblock %}
+    </main>
+</div>
+</body>
+</html>

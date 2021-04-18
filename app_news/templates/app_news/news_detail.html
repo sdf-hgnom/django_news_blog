@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Просмотр Новости
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Просмотр Новости</h1>
+    <nav class="index-nav">
+    {% if user.is_superuser  or user.profile.is_moderator or user == news.author %}
+        <a href="{{ news.get_edit_absolute_url }}" class="index-nav-btn">Редактировать Новость</a>
+
+
+        {% if edit_this.count > 1 %}
+            <div class="index-nav-label">Новость коментируется</div>
+            {% else %}
+            <a href="{{ news.get_delete_absolute_url }}" class="index-nav-btn">Удалить Новость</a>
+            {% endif %}
+    {% endif %}
+        <a href="{% url 'news' %}" class="index-nav-btn">К просмотру Новостей</a>
+    </nav>
+    <div class="main-detail-news-container">
+        <div class="main-detail-row">
+            <span class="main-detail-item">Заголовок Новости </span>
+            <span class="main-detail-item-value">{{ news.title }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Дата создания Новости </span>
+            <span class="main-detail-item-value">{{ news.create_date }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Автор Новости </span>
+            <a class="main-news-detail-author-link" href="{{ news.author.profile.get_absolute_url }}">
+                <span class="main-detail-item-value main-detail-item-value-author">{{ news.author }}</span>
+            </a>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Дата изменения Новости </span>
+            <span class="main-detail-item-value">{{ news.edit_date }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Статус Новости</span>
+            <span class="main-detail-item-value">{{ news.status }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Тэги новости </span>
+            <span class="main-detail-item-value">{{ news.get_tags}}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Колличество комментариев </span>
+            <span class="main-detail-item-value">{{ news.comment_set.all.count }}</span>
+        </div>
+    </div>
+    <nav class="index-nav">
+    {% if user.is_authenticated %}
+        <form method="post" action="">
+        {% csrf_token %}
+        {{ comment_add.text }}
+            {{ comment_add.author }}
+            {{ comment_add.news }}
+        <input class="index-nav-btn" type="submit" value="Коментировать">
+        </form>
+    {% endif %}
+    </nav>
+    {% comment_list news.comment_set.all %}
+{% endblock %}

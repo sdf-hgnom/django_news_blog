@@ -1,0 +1,42 @@
+{% load custom_tags %}
+<form method="post" action="">
+    {% csrf_token %}
+    {% if current_filter %}
+        <span>Фильтр по тэгу :</span>
+        <select name="filter_tag" id="filter_tag" onchange="submit()">
+            {% for tag in all_tags %}
+                {% if current_filter == tag %}
+                    <option value="{{ tag }}" selected>{{ tag }}</option>
+                {% else %}
+                    <option value="{{ tag }}">{{ tag }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label>Фильтр по Дате :<input type="date" name="filter-date" id="filter-date" onchange="submit()"
+                                      value="{{ current_date }}"></label>
+        <label>Включить:
+            {% if filter_date_enable == 'True' %}
+                <input name="date-enable" id="date-enable" type="checkbox" checked onchange="submit()" value="True">
+            {% else %}
+                <input name="date-enable" id="date-enable" type="checkbox" onchange="submit()" value="True">
+            {% endif %}
+        </label>
+    {% endif %}
+    <div class="{{ style }}">
+        {% for item in fields %}
+            <div>
+                {% if item == order_by %}
+                    <input id="{{ item }}" type="radio"
+                           name="order_by" value="{{ item }}"
+                           onchange="submit()" checked>
+                {% else %}
+                    <input id="{{ item }}" type="radio"
+                           name="order_by" value="{{ item }}"
+                           onchange="submit()">
+                {% endif %}
+                <label class="{{ style }}-label"
+                       for="{{ item }}">{{ labels | index:forloop.counter0 }}</label>
+            </div>
+        {% endfor %}
+    </div>
+</form>

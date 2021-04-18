@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% block page_title %}
+    Блог
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Список Блогов</h1>
+     {% if user.is_authenticated %}
+    <nav class="blog-nav-container">
+        <a href="{% url 'blog_add' %}">
+            <div class="blog-nav-btn">
+                Добавить блог
+            </div>
+        </a>
+    <a href="{% url 'blog_upload' %}">
+            <div class="blog-nav-btn">
+                Добавить блоги из файла
+            </div>
+        </a>
+    </nav>
+    {% endif %}
+
+        {% for blog in object_list %}
+            <a class="blog-row-link" href="{{ blog.get_absolute_url }}">
+                <div class="blog-row">
+                     {% if blog.author.profile.avatar %}
+                        <div class="blog-row-avatar" style="background-image: url({{ blog.author.profile.avatar.url }});"></div>
+                        {% else %}
+                    <div class="blog-row-avatar" style="background-color: white;"></div>
+                    {% endif %}
+                    <div class="blog-row-author">{{ blog.author.profile.full_name }}</div>
+                    <div class="blog-row-date">{{ blog.create_date|date:"d M Y" }}</div>
+                    <div class="blog-row-title">{{ blog.title }}</div>
+                    <div class="blog-row-text">{{ blog.text|text_clip:100 }}</div>
+                </div>
+            </a>
+
+        {% endfor %}
+
+{% endblock %}

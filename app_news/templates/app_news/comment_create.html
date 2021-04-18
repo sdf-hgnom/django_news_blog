@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Добавление коментария
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Добавление коментария</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Сохранить">
+            <a href="{% url 'news' %}"><input class="index-nav-btn" type="button" value="Отказаться"></a>
+        </nav>
+    </form>
+{% endblock %}

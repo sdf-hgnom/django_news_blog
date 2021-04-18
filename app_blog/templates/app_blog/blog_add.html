@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Добавить блог
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Добавляем блог</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <nav class="blog-nav-container">
+            <input type="submit" class="blog-nav-btn" value="Сохранить">
+            <a href="{% url 'blog_list' %}">
+                <div class="blog-nav-btn">
+                    Отказаться
+                </div>
+            </a>
+        </nav>
+    </form>
+{% endblock %}
+

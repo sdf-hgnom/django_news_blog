@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Удаление Блога
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Удалить Блог {{ object.title }}</h1>
+    <form method="post" action="">
+        <form method="post" action="">
+        {% csrf_token %}
+        <nav class="blog-nav-container">
+            <input class="blog-nav-btn" type="submit" value="Удалить">
+            <a href="{% url 'blog_list' %}">
+                <input class="blog-nav-btn" type="button" value="Отказаться">
+            </a>
+        </nav>
+    </form>
+{% endblock %}

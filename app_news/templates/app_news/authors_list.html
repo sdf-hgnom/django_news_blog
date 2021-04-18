@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+{% block page_title %}
+    Пользователи
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Пользователи</h1>
+    <div>
+    <img class="main-news-list-element-picture" src="{% static 'app_news/images/emblem-system.png' %}" alt="картинка - суперпользователь">
+        <span>- Суперпользователь</span>
+    <img class="main-news-list-element-picture" src="{% static 'app_news/images/book.png' %}" alt="картинка - верифицированный пользователь">
+        <span>- Верифицированный </span>
+    <img class="main-news-list-element-picture" src="{% static 'app_news/images/case.png' %}"alt="картинка - модератор">
+        <span>- Модератор</span>
+    <img class="main-news-list-element-picture" src="{% static 'app_news/images/user.png' %}" alt="картинка - пользователь">
+    <span>- Обычный</span>
+    </div>
+
+    {% order_by_form ordered_fields labels order_by %}
+    <div class="main-authors-list-title">
+        <div class="main-news-list-element-nick">Ник</div>
+        <div class="main-news-list-element-first">Имя</div>
+        <div class="main-news-list-element-middle">Отчество</div>
+        <div class="main-news-list-element-last">Фамилия</div>
+        <div class="main-news-list-element-counts">Новости // Коммент.</div>
+    </div>
+    {% for item in users %}
+        <a class="main-news-list-link" href="{{ item.profile.get_absolute_url }}">
+
+            <div class="main-authors-list">
+            {% if item.profile.avatar %}
+                <div class="main-author-list-figure" style="background-image: url({{ item.profile.avatar.url }})"></div>
+                {% else %}
+                <div class="main-author-list-figure" style="background-color:#ffffff;"></div>
+
+            {% endif %}
+
+
+
+            {% if item.is_superuser%}
+                    <img class="main-news-list-element-picture" src="{% static 'app_news/images/emblem-system.png' %}"
+                         alt="картинка - верифицированный пользователь">
+                {% elif item.profile.is_verify %}
+                    <img class="main-news-list-element-picture" src="{% static 'app_news/images/book.png' %}"
+                         alt="картинка - верифицированный пользователь">
+                {% elif item.profile.is_moderator %}
+                    <img class="main-news-list-element-picture" src="{% static 'app_news/images/case.png' %}"
+                         alt="картинка - модератор">
+                {% else %}
+                    <img class="main-news-list-element-picture" src="{% static 'app_news/images/user.png' %}"
+                         alt="картинка - пользователь">
+                {% endif %}
+                <div class="main-news-list-element-nick">{{ item.username }}</div>
+                <div class="main-news-list-element-first">{{ item.first_name }}</div>
+                <div class="main-news-list-element-first">{{ item.profile.middle_name }}</div>
+                <div class="main-news-list-element-middle">{{ item.last_name }}</div>
+                <div class="main-news-list-element-counts">{{ item.news_set.count }} {{ item.comment_set.count }}</div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}
+

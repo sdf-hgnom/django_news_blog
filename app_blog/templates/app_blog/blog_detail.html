@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load static %}
+{% block page_title %}
+    Просмотр блога
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">{{ blog.title }}</h1>
+    <nav class="blog-nav-container">
+     {% if user.is_authenticated %}
+        <a href="{{ blog.get_edit_absolute_url }}">
+            <div class="blog-nav-btn">
+                Редактировать блог
+            </div>
+        </a>
+    {% endif %}
+    </nav>
+    <ul class="blog-detail-container">
+        <li class="blog-detail-row">
+            <span class="blog-detail-label">Автор:</span>
+
+            <div class="blog-row-avatar"
+                 style="background-image: url({{ blog.author.profile.avatar.url }});"></div>
+            <div class="blog-row-author">{{ blog.author.profile.full_name }}</div>
+
+        </li>
+    <li class="blog-detail-row">
+            <span class="blog-detail-label">Создан :</span>
+
+            <div class="blog-row-date">{{ blog.create_date|date:"d M Y" }}</div>
+        </li>
+
+    </ul>
+    <div class="blog-detail-text">
+    {{ blog.text }}
+    </div>
+    <div class="blog-detail-imsges-container">
+    {% for image in blog.files.all %}
+        <img class="blog-detail-img" src="{{ image.file.url }}" alt="{{ image }}">
+    {% endfor %}
+    </div>
+{% endblock %}

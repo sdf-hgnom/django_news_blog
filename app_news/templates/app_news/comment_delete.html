@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Удаление Коментария
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Удаление Коментария</h1>
+    <div class="main-detail-news-container">
+        {{ comment.text }}
+        От : {{ comment.create_date }}
+        Автор :{{ comment.author }}
+    </div>
+    <form method="post" action="">
+        {% csrf_token %}
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Удалить">
+            <a href="{% url 'news' %}">
+                <input class="index-nav-btn" type="button" value="Отказаться">
+            </a>
+        </nav>
+    </form>
+{% endblock %}

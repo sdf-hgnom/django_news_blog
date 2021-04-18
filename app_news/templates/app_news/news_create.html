@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Добавление Новости
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Добавление Новости</h1>
+    <form class="news-create-form-container" method="post" action="">
+        <div class="news-create-form-row">
+            {% csrf_token %}
+        </div>
+        <div>
+            {{ form.author }}
+        </div>
+        <div class="news-create-form-row">
+            <div class="news-create-form-label">
+                {{ form.title.label_tag }}
+            </div>
+            <div class="news-create-form-value">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="news-create-form-row">
+            <div class="news-create-form-label">
+                {{ form.text.label_tag }}
+            </div>
+            <div class="news-create-form-value">
+                {{ form.text }}
+            </div>
+        </div>
+        <div class="news-create-form-row">
+            <div class="news-create-form-label">
+                {{ form.status.label_tag }}
+            </div>
+            <div class="news-create-form-value">
+                {{ form.status }}
+            </div>
+        </div>
+        <div class="news-create-form-row">
+            <div class="news-create-form-label">
+                {{ form.tags.label_tag }}
+            </div>
+            <div class="news-create-form-value">
+                {{ form.tags }}
+            </div>
+        </div>
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Добавить">
+            <a href="{% url 'news' %}"><input class="index-nav-btn" type="button" value="Отказаться"></a>
+        </nav>
+    </form>
+{% endblock %}

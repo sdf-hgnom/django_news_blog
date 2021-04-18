@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% block page_title %}
+    Редактируем блог
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Редактируем блог</h1>
+
+    <div class="blog-edit-info">
+        <div>
+            Создан :{{ blog.create_date|date:"d M Y" }}
+        </div>
+        Автор :
+        <div class="blog-row-avatar" style="background-image: url({{ blog.author.profile.avatar.url }});"></div>
+        <div class="blog-row-author">{{ blog.author.profile.full_name }}</div>
+    </div>
+    <form class="blog-edit-container" method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="blog-edit-row">
+            <label for="id_title">Заголовок :</label>
+            <input class="blog-edit-value" type="text" id="id_title" name="title" value="{{ blog.title }} " size="38">
+        </div>
+        <div class="blog-edit-row">
+            <label class="blog-edit-label" for="id_title">Текст :</label>
+            <textarea class="blog-edit-value" cols="40" rows="10" id="id_text" name="text">{{ blog.text }}</textarea>
+        </div>
+        {% for item in blog.files.all %}
+            <div class="blog-edit-row">
+                <label class="blog-edit-label">
+                    <img src="{{ item.file.url }}" class="blog-edit-img">
+                    <span>Включен:</span>
+                    <input id="file_{{ item.id }}" type="checkbox" checked name="file_{{ item.id }}" value="Yes">
+                </label>
+            </div>
+        {% endfor %}
+        <div class="blog-edit-row">
+            <label class="blog-edit-label">
+                <input class="blog-edit-value" type="file" multiple name="upload">
+            </label>
+        </div>
+        <nav class="blog-nav-container">
+            <input type="submit" class="blog-nav-btn" value="Сохранить">
+            <a href="{{ blog.get_delete_absolute_url }}">
+                <div class="blog-nav-btn">
+                    Удалить
+                </div>
+            </a>
+            <a href="{% url 'blog_list' %}">
+                <div class="blog-nav-btn">
+                    Отказаться
+                </div>
+            </a>
+
+        </nav>
+    </form>
+{% endblock %}
+

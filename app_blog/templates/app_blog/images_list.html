@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load static %}
+{% block page_title %}
+    Просмотр изображений
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Просмотр загруженных изображений</h1>
+    {% for item in files %}
+        <figure class="image-container">
+        <img class="image-img" src="{% static item %}" alt="">
+            <figcaption class="image-caption"> {{ item|file_name }}</figcaption>
+        </figure>
+    {% endfor %}
+
+
+{% endblock %}

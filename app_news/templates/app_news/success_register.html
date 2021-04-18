@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Регистрация
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Успешная регистрация {{ user }}</h1>
+    <nav class="index-nav">
+            <a href="{% url 'index' %}"><input class="index-nav-btn" type="button" value="На главную"></a>
+            <a href="{{ user.profile.get_absolute_url }}"><input class="index-nav-btn" type="button" value="Редактировать профиль"></a>
+        </nav>
+{% endblock %}

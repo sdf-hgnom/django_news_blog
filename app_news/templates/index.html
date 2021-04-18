@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Главная страница
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Главная страница</h1>
+    <ul class="info-content">
+{#        <li><span>Всего новостей : </span>#}
+{#            <span>{{ count_news }}</span>#}
+{#        </li>#}
+{#        <li><span>Всего коментариев к новостям : </span>#}
+{#            <span>{{ count_comments }}</span>#}
+{#        </li>#}
+        <li><span>Всего зарегистрированных пользователей : </span>
+            <span>{{ count_users }}</span>
+        </li>
+{#    <li><span>Всего блогов : </span>#}
+{#            <span>{{ count_blogs }}</span>#}
+{#        </li>#}
+    </ul>
+    <nav class="index-nav">
+    </nav>
+{% endblock %}
+

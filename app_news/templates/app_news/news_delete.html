@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Удаление Новости
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Удаление Новости</h1>
+    {{ news.title }}
+    {{ news.create_date }}
+    {{ news.author }}
+    <form method="post" action="">
+        {% csrf_token %}
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Удалить">
+            <a href="{% url 'news' %}"><input class="index-nav-btn" type="button" value="Отказаться"></a>
+        </nav>
+    </form>
+{% endblock %}

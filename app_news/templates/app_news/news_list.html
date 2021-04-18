@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block page_title %}
+    Перечень Новостей
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Перечень Новостей</h1>
+    <h2 class="main-block-header">Всего новостей {{ news_list.count }}</h2>
+    <nav class="index-nav">
+        {% if user.is_verify or user.is_superuser %}
+            <a href="{% url 'news_create' %}" class="index-nav-btn">Добавить Новость</a>
+        {% endif %}
+    </nav>
+    {% order_by_form ordered_fields labels order_by tag_filter date_filter enable_date_filter %}
+    <div class="main-news-list-header">
+        <div class="main-news-list-element-title">Заголовок</div>
+        <div class="main-news-list-element-date">Дата создания</div>
+        <div class="main-news-list-element-author">Автор</div>
+        <div class="main-news-list-element-count">Кол-во коментариев</div>
+    </div>
+    {% for item in news_list %}
+        <a class="main-news-list-link" href="{{ item.get_absolute_url }}">
+            <div class="{{ list_style }}">
+                    {% if item.status == 'draft' %}
+                        <img class="main-news-list-element-picture" src="{% static 'app_news/images/Lock.png' %}" alt="картинка - блокированно">
+                        {% else %}
+                        <img class="main-news-list-element-picture" src="{% static 'app_news/images/Unlock.png' %}" alt="картинка - разблокированно">
+                    {% endif %}
+                <div class="main-news-list-element main-news-list-element-title">{{ item.title }}</div>
+                <div class="main-news-list-element-date">{{ item.create_date }}</div>
+                <div class="main-news-list-element-author">{{ item.author }}</div>
+                <div class="main-news-list-element-count">{{ item.comment_set.all.count }}</div>
+                <div class="flex-break"></div>
+            <div class="main-news-list-element-tag">
+            <span>Тэги : </span>
+                <span>{{ item.get_tags }}</span>
+            </div>
+            </div>
+        </a>
+
+    {% endfor %}
+{% endblock %}

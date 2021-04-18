@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Редактирование коментария
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Редактирование коментария</h1>
+    <form method="post" action="">
+    <div class="main-detail-news-container">
+        <div class="main-detail-row">
+        <span>{% csrf_token %}</span>
+        </div>
+         <div class="main-detail-row">
+        <span>{{ form.author }}</span>
+        </div>
+        <div class="main-detail-row">
+        <span>{{ form.news }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Дата коментария</span>
+            <span class="main-detail-item-value">{{ comment.create_date }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Автор коментария</span>
+            <span class="main-detail-item-value">{{ comment.author }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Коментируемая новость</span>
+            <span class="main-detail-item-value">{{ comment.news }}</span>
+        </div>
+         <div class="main-detail-row">
+            <span class="main-detail-item">Дата создания новости</span>
+            <span class="main-detail-item-value">{{ comment.news.create_date }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Текст Коментария</span>
+            <span class="main-detail-item-value">{{ form.text }}</span>
+        </div>
+    </div>
+
+
+        <nav class="index-nav">
+            <input class="index-nav-btn" type="submit" value="Сохранить">
+            <a href="{% url 'news' %}">
+                <input class="index-nav-btn" type="button" value="Отказаться">
+            </a>
+        </nav>
+    </form>
+{% endblock %}

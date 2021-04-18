@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Contacts
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Контакты</h1>
+
+    <ul class="info-content">
+        <li>
+            <span>Контактное лицо :</span>
+            <span>{{ fio }}</span>
+        </li>
+        <li>
+            <span>Эл. почта :</span>
+            <span>{{ email }}</span>
+        </li>
+        <li>
+            <span>Телефон :</span>
+            <span>{{ phone }}</span>
+        </li>
+    </ul>
+{% endblock %}

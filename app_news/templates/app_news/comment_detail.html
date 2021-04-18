@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block page_title %}
+    Просмотр Коментария
+{% endblock %}
+{% block content %}
+    <h1 class="main-block-header">Просмотр Коментария</h1>
+    <nav class="index-nav">
+        {% if user.is_superuser or user == comment.author %}
+            <a href="{{ comment.get_edit_absolute_url }}" class="index-nav-btn">Редактировать Коментарий </a>
+            <a href="{{ comment.get_delete_absolute_url }}" class="index-nav-btn">Удалить Коментарий</a>
+        {% endif %}
+        <a href="{% url 'news' %}" class="index-nav-btn">К просмотру Новостей</a>
+    </nav>
+    <div class="main-detail-news-container">
+        <div class="main-detail-row">
+            <span class="main-detail-item">Дата коментария</span>
+            <span class="main-detail-item-value">{{ comment.create_date }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Автор коментария</span>
+            <span class="main-detail-item-value">{{ comment.author }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Заголовок новости</span>
+            <span class="main-detail-item-value">{{ comment.news.title }}</span>
+        </div>
+        <div class="main-detail-row">
+            <span class="main-detail-item">Дата последнего изменения </span>
+            <span class="main-detail-item-value">{{ comment.edit_date }}</span>
+        </div>
+    </div>
+    <div class="main-detail-news-container">
+        Текст коментария : {{ comment.text }}
+    </div>
+{% endblock %}
