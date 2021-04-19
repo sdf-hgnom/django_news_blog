@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block page_title %}
+    Добавить тег
+{% endblock %}
+{% block content %}
+    <h1 class="page-header">Добавление Тегов</h1>
+    <form method="post" action="">
+     {% csrf_token %}
+    {{ form.as_p }}
+    </form>
+    <nav class="index-nav">
+        <input type="submit" class="index-nav-btn" value="Добавить">
+        <a href="{% url 'index' %}"><input class="index-nav-btn" type="button" value="Отказаться"></a>
+    </nav>
+
+{% endblock %}

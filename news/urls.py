@@ -5,7 +5,6 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
     path('', include('app_news.urls')),
     path('blog/', include('app_blog.urls')),

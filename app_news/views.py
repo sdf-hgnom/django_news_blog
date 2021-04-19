@@ -13,8 +13,10 @@ from django.contrib.auth.models import User, Group
 from app_blog.models import Blog
 from app_news.company import ABOUT_COMPANY, CONTACTS_COMPANY
 from app_news.models import News, Comment, Profile, NewsEditor, Tag
-from app_news.forms import NewsForm, CommentForm, ProfileForm, RegisterForm
+from app_news.forms import NewsForm, CommentForm, ProfileForm, RegisterForm,TagForm
 from django.contrib import messages
+
+
 
 
 class SuccessRegisterView(TemplateView):
@@ -302,3 +304,16 @@ class Contacts(TemplateView):
 
     def get_context_data(self):
         return CONTACTS_COMPANY
+
+
+class TagCreate(CreateView):
+    form_class = TagForm
+    template_name = 'app_news/tag_create.html'
+    success_url = '/news/'
+
+    def form_valid(self, form):
+        ret = super().form_valid(form)
+        print('in form valid',ret)
+        return ret
+
+

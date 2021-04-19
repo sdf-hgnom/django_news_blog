@@ -1,6 +1,6 @@
 # using Python 3.8.5
 import django.forms as forms
-from app_news.models import News, Comment, Profile
+from app_news.models import News, Comment, Profile, Tag
 from django.contrib.auth.models import User
 
 
@@ -17,6 +17,13 @@ class RegisterForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Введенные Пароли \t Не совпадают')
         return cd['password2']
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
 
 
 class NewsForm(forms.ModelForm):

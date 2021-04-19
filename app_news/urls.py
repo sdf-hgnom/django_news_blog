@@ -5,8 +5,9 @@ from app_news import views
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
-    path('about', views.About.as_view(), name='about'),
-    path('contacts', views.Contacts.as_view(), name='contacts'),
+    path('tag_create/', views.TagCreate.as_view(), name='tag_create'),
+    path('about/', views.About.as_view(), name='about'),
+    path('contacts/', views.Contacts.as_view(), name='contacts'),
     path('accounts/login', LoginView.as_view(template_name='app_news/login.html'), name='login'),
     path('accounts/logout', LogoutView.as_view(template_name='app_news/log_out.html'), name='logout'),
     path('accounts/register', views.RegisterEdit.as_view(success_url='success_register.html'), name='register'),
@@ -19,8 +20,8 @@ urlpatterns = [
     path('news/<str:slug>/create_comment/', views.CommentCreateView.as_view(), name='comment_create'),
     path('news_edit/<str:slug>/', views.NewsEditView.as_view(), name='news_edit'),
     path('news_delete/<str:slug>/', views.NewsDeleteView.as_view(), name='news_delete'),
-    path('news_create', views.NewsCreateView.as_view(), name='news_create'),
-    path('news', views.NewsView.as_view(), name='news'),
+    path('news_create/', views.NewsCreateView.as_view(), name='news_create'),
+    path('news/', views.NewsView.as_view(), name='news'),
+    path('authors',views.AuthorView.as_view(),name='authors'),
     path('authors/<int:pk>/', views.AuthorDetailView.as_view(), name='author_detail'),
-    path('authors/', views.AuthorView.as_view(), name='authors'),
 ]
