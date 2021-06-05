@@ -13,10 +13,8 @@ from django.contrib.auth.models import User, Group
 from app_blog.models import Blog
 from app_news.company import ABOUT_COMPANY, CONTACTS_COMPANY
 from app_news.models import News, Comment, Profile, NewsEditor, Tag
-from app_news.forms import NewsForm, CommentForm, ProfileForm, RegisterForm,TagForm
+from app_news.forms import NewsForm, CommentForm, ProfileForm, RegisterForm, TagForm
 from django.contrib import messages
-
-
 
 
 class SuccessRegisterView(TemplateView):
@@ -150,7 +148,7 @@ class AuthorDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         current_user: User = self.get_object()
         current_profile = Profile.objects.get(user=current_user.id)
-        profile_form = ProfileForm(request.POST,request.FILES, instance=current_profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=current_profile)
         if profile_form.is_valid():
             group = Group.objects.get(name='Verify_Users')
             if profile_form.cleaned_data['is_verify']:
@@ -313,7 +311,5 @@ class TagCreate(CreateView):
 
     def form_valid(self, form):
         ret = super().form_valid(form)
-        print('in form valid',ret)
+        print('in form valid', ret)
         return ret
-
-
