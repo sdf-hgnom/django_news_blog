@@ -13,7 +13,7 @@ ipython-genutils==0.2.0
 jedi==0.18.0
 parso==0.8.1
 pickleshare==0.7.5
-Pillow==8.1.2
+Pillow==8.2.0
 prompt-toolkit==3.0.18
 pycbrf==1.1.0
 Pygments==2.8.1
