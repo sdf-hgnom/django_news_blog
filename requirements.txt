@@ -5,7 +5,7 @@ chardet==4.0.0
 colorama==0.4.4
 dbf-light==1.0.0
 decorator==4.4.2
-Django==2.2.25
+Django==2.2.26
 django-cleanup==5.1.0
 idna==2.10
 ipython==7.22.0
